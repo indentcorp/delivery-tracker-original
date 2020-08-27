@@ -1,0 +1,29 @@
+name: CI for API Server
+
+on: [push, pull_request]
+
+jobs:
+  dev:
+    name: Build dev
+    runs-on: ubuntu-18.04
+    defaults:
+      run:
+        shell: bash
+        working-directory: packages/apiserver
+    strategy:
+      max-parallel: 1
+      matrix:
+        node-version: [12.x, 14.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies
+        run: yarn install
+      - name: Run Tests
+        env:
+          TRACKING_TEST_CASE: '[{"carrier":"kr.cjlogistics","trackId":"000000000000"},{"carrier":"kr.cjlogistics","trackId":"123456789012","errorCode":404},{"carrier":"kr.cvsnet","trackId":"1111111111"},{"carrier":"kr.cvsnet","trackId":"0123456789","errorCode":404},{"carrier":"kr.hanjin","trackId":"508892285204"},{"carrier":"kr.hanjin","trackId":"0123456782","errorCode":404},{"carrier":"kr.logen","trackId":"00000000000"},{"carrier":"kr.logen","trackId":"12345678901","errorCode":404},{"carrier":"kr.lotte","trackId":"000000000000"},{"carrier":"kr.lotte","trackId":"1234567890123","errorCode":404}]'
+        run: yarn run test
