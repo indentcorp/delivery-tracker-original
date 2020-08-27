@@ -1,0 +1,10 @@
+FROM node:14
+
+RUN mkdir -p /usr/src/app/apiserver
+WORKDIR /usr/src/app/apiserver
+
+COPY package.json .
+RUN yarn install
+RUN yarn global add nodemon
+
+EXPOSE 8080

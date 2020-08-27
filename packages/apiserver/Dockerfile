@@ -1,4 +1,6 @@
-FROM node:carbon
+FROM node:14
+
+ENV NODE_ENV production
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app

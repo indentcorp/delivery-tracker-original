@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    volumes:
+      - ./carriers:/usr/src/app/apiserver/carriers
+      - ./locales:/usr/src/app/apiserver/locales
+      - ./test:/usr/src/app/apiserver/test
+      - ./app.js:/usr/src/app/apiserver/app.js
+      - ./server.js:/usr/src/app/apiserver/server.js
+    environment: 
+      - TRACKING_TEST_CASE="[{\"carrier\":\"kr.cjlogistics\",\"trackId\":\"0000000000\"},{\"carrier\":\"kr.cjlogistics\",\"trackId\":\"123456789012\",\"errorCode\":404}]"
+    working_dir: /usr/src/app/apiserver
+    ports:
+      - 8080:8080
+    command: yarn run dev
+    restart: always
