@@ -1,7 +1,10 @@
 const path = require('path');
+const express = require('express')
 const fs = require('fs');
 const i18n = require('i18n');
 const cors = require('cors');
+const bodyParser = require('body-parser')
+const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 
 i18n.configure({
   locales: ['en', 'ja', 'ko'],
@@ -11,6 +14,9 @@ i18n.configure({
 function initApp(app) {
   app.use(cors());
   app.use(i18n.init);
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({ extended: true }))
+  app.use(awsServerlessExpressMiddleware.eventContext())
 
   const CARRIERS = {};
 
@@ -74,4 +80,4 @@ function initApp(app) {
   return app;
 }
 
-module.exports = initApp;
+module.exports = initApp(express());

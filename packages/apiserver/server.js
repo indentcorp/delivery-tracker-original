@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const express = require('express');
-const app = require('./app.js');
+const app = require('./app');
+const port = process.env.PORT || 8080
 
-app(express()).listen(process.env.PORT || 8080);
+app.listen(port)
+console.log(`listening on http://localhost:${port}`)
