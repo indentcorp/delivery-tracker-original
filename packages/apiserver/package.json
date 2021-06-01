@@ -1,10 +1,18 @@
 {
   "name": "delivery-tracker-apiserver",
   "version": "0.1.0",
-  "description": "Delivery and Shipping Tracking Service - API Server",
+  "description": "Delivery-Tracker application on AWS Lambda using Amazon API Gateway.",
   "homepage": "https://github.com/shlee322/delivery-tracker",
   "bugs": {
     "url": "https://github.com/shlee322/delivery-tracker/issues"
+  },
+  "main": "lambda.js",
+  "config": {
+    "s3BucketName": "lambda-delivery-tracker",
+    "region": "ap-northeast-2",
+    "cloudFormationStackName": "DeliveryTrackerFunction",
+    "functionName": "DeliveryTrackerFunction",
+    "accountId": "599087160579"
   },
   "scripts": {
     "start": "node server.js",
