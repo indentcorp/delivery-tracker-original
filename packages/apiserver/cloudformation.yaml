@@ -53,12 +53,12 @@ Resources:
   AwsServerlessExpressFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: ./lambda.js
+      CodeUri: lambda.js
       Handler: lambda.handler
       MemorySize: 1024
       Role: !GetAtt LambdaExecutionRole.Arn
       Runtime: nodejs10.x
-      Timeout: 5
+      Timeout: 20
       Events:
         ProxyApiRoot:
           Type: Api
