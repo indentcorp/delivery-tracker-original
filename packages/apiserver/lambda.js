@@ -1,4 +1,3 @@
-'use strict'
 const awsServerlessExpress = require(process.env.NODE_ENV === 'test' ? '../../index' : 'aws-serverless-express')
 const app = require('./app')
 
