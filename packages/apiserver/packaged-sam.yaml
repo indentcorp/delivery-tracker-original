@@ -54,7 +54,7 @@ Resources:
   AwsServerlessExpressFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: s3://lambda-delivery-tracker/0e585bfe0ed996e6e8d0f2ac8e2dc320
+      CodeUri: s3://lambda-delivery-tracker/095a67357934c2d896f6f467a3403e3a
       Handler: main.handler
       MemorySize: 1024
       Role:

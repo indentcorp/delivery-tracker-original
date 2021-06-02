@@ -1,0 +1,43 @@
+name: Deploy Lambda through Cloudformatin
+
+jobs:
+  build:
+    name: Start self-hosted EC2 runner
+    runs-on: amazonlinux:2
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Dependencies
+        run: yum install -y make gcc-c++ tar gzip unzip less
+
+      - name: Install aws-cli
+        run: |
+          cd /
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          ./aws/install
+          aws --version
+
+      - name: Install Node
+        run: |
+          touch ~/.bashrc
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+          source ~/.bashrc
+          nvm install 10.12.0
+          node --version
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ACTIONS_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ACTIONS_AWS_SECRET_ACCESS_KEY }}
+
+      - name: Set System Locale
+        run: export LANG=C.utf8
+
+      - name: Build & Packaging & Deploy
+        run: |
+          cd /app/packages/apiserver/
+          rm -rf dist
+          rm -rf node_modules
+          npm run setup
