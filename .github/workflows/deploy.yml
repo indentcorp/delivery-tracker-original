@@ -1,4 +1,8 @@
 name: Deploy Lambda through Cloudformatin
+on:
+  push:
+    branches:
+      - release
 
 jobs:
   build:

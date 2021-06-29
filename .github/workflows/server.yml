@@ -1,6 +1,8 @@
 name: CI for API Server
-
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - release
 
 jobs:
   dev:
