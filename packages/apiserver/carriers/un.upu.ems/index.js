@@ -10,7 +10,7 @@ const parseStatusId = s => {
 };
 
 function getTime(location, time) {
-  return new Date(time + ' GMT+0900')
+  return new Date(`${time} GMT+0900`);
 }
 
 function getTrack(trackId) {
