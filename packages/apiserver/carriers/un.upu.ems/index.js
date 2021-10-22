@@ -10,11 +10,7 @@ const parseStatusId = s => {
 };
 
 function getTime(location, time) {
-  // WARNING : Timezone is ignored.
-  const result = /^(\d+)\/(\d+)\/(\d+) (\d+):(\d+)$/.exec(time);
-
-  // TODO : timezone convert
-  return `${result[3]}-${result[2]}-${result[1]}T${result[4]}:${result[5]}:00Z`;
+  return new Date(`${time} GMT+0900`);
 }
 
 function getTrack(trackId) {
@@ -22,12 +18,13 @@ function getTrack(trackId) {
 
   return new Promise((resolve, reject) => {
     axios
-      .post(
-        'https://storm-uat.ipc.be/storm/pages/fragments/public/itemtracking',
-        qs.stringify({
-          itemSearch: trackId,
-          language: '1',
-        })
+      .get(
+        'https://items.ems.post/api/publicTracking/track',{
+          params: {
+            itemId: trackId,
+            language: 'EN',
+          }
+        }
       )
       .then(res => {
         const dom = new JSDOM(res.data);
@@ -36,7 +33,7 @@ function getTrack(trackId) {
         const table = document.querySelector('tbody');
 
         const error = table
-          ? table.querySelector('tr:first-child td[colspan="3"]')
+          ? table.querySelector('td[class="no-results-found"]')
           : true;
         if (error) {
           reject({
