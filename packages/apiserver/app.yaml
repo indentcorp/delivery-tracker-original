@@ -1,4 +1,4 @@
-runtime: nodejs10
+runtime: nodejs16
 env_variables:
   NODE_TLS_REJECT_UNAUTHORIZED: '0'
   NODE_ENV: 'production'
