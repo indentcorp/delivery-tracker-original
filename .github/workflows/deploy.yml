@@ -57,4 +57,4 @@ jobs:
           cd /home/runner/work/delivery-tracker/delivery-tracker/packages/apiserver/
           rm -rf dist
           rm -rf node_modules
-          npm run setup
+          yarn setup
