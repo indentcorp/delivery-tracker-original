@@ -76,3 +76,8 @@ package-lock.json
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
